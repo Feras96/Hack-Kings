@@ -156,6 +156,14 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
         }
     }
 
+    public String getUsername() {
+        return username.getText().toString();
+    }
+
+    public String getEmail() {
+        return emailLabel.getText().toString();
+    }
+
     @Override
     public void onConnectionSuspended(int cause) {
         mGoogleApiClient.connect();
