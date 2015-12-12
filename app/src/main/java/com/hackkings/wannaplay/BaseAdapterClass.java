@@ -119,15 +119,11 @@ public class BaseAdapterClass extends BaseAdapter {
         String pst = postcode.get(position).toString();
         po.setText(pst);
 
-
-
-
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                Intent in = new Intent(activity.getApplicationContext(), eventpage.class);
+                Intent in = new Intent(activity.getApplicationContext(), EventActivity.class);
                 activity.startActivity(in);
 
             }
