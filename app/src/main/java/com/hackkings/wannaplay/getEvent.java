@@ -2,7 +2,7 @@ package com.hackkings.wannaplay;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,22 +20,21 @@ import java.util.ArrayList;
 /**
  * Created by vlad on 12/10/2015.
  */
-public class getEvent extends FragmentActivity{
+public class getEvent extends AppCompatActivity {
 
+
+    ArrayList<String> username = new ArrayList<String>();
     ArrayList<String> timestamp = new ArrayList<String>();
     ArrayList<String> sport = new ArrayList<String>();
-
-
+    ArrayList<String> postcode = new ArrayList<String>();
     ArrayList<String> city = new ArrayList<String>();
     ArrayList<String> country = new ArrayList<String>();
     ArrayList<String> event_date = new ArrayList<String>();
-    ArrayList<String> members = new ArrayList<String>();
+    ArrayList<String> players = new ArrayList<String>();
 
 
     ListView liste;
     BaseAdapterClass adapter;
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +42,7 @@ public class getEvent extends FragmentActivity{
         liste = (ListView) findViewById(R.id.listView1);
 //        init();
 //        outputLine("Request started...");
-        new getData().execute("http://webzard.com/databases/android/com.hackkings.wannaplay/getevents.php");
-
-
-
-
+        new getData().execute("http://webzard.com/databases/android/wannaplay/getevents.php");
     }
 
     private class getData extends AsyncTask<String,Double,JSONArray> {
@@ -90,22 +85,17 @@ public class getEvent extends FragmentActivity{
                 for(int i= list.length()-1;i>=0;i--)
                 {
                     l = list.getJSONObject(i);
-
+                    username.add("User: "+l.getString("username"));
                     timestamp.add("Posted on: "+l.getString("timestamp"));
                     sport.add(l.getString("sport"));
-
-                    city.add("Location: "+l.getString("city")+",");
+                    postcode.add("Location: "+l.getString("postcode"));
+                    city.add(l.getString("city")+",");
                     country.add(l.getString("country"));
-                    event_date.add("Available: "+l.getString("event_date"));
-                    members.add("Players: "+l.getString("members"));
-
-
-//System.out.println("!!");
-                    //    outputLine(l.getString("timestamp"));
-                    //    outputLine("Success2!");
+                    event_date.add("Available: "+l.getString("event_date")+" -");
+                    players.add("Players: "+l.getString("members"));
 
                 }
-                adapter = new BaseAdapterClass(getEvent.this,timestamp,sport,city,country,event_date,members);
+                adapter = new BaseAdapterClass(getEvent.this,timestamp,sport,city,country,event_date,players,username,postcode);
                 liste.setAdapter(adapter);
 
             }catch (Exception e)
@@ -123,7 +113,5 @@ public class getEvent extends FragmentActivity{
         output += (new DateTime()).toString("HH:mm:ss") + " <strong>" + s + "</strong><br />";
         outputView.setText(Html.fromHtml(output));
     }
-
-
 
 }
