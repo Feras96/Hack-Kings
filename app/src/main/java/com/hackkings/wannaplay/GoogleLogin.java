@@ -5,6 +5,7 @@ import java.io.InputStream;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -28,6 +29,11 @@ import com.google.android.gms.plus.model.people.Person;
 
 public class GoogleLogin extends Activity implements OnClickListener, ConnectionCallbacks, OnConnectionFailedListener {
 
+
+    public static String filename = "Vlad";
+    SharedPreferences data;
+    SharedPreferences.Editor editor;
+
     private static final int RC_SIGN_IN = 0;
 
     // Google client to communicate with Google
@@ -40,10 +46,19 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
     private ImageView image;
     private TextView username, emailLabel;
     private LinearLayout profileFrame, signinFrame;
-
+    private boolean userConnected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        data = getSharedPreferences(filename, 0);
+        userConnected = data.getBoolean("logged", false);
+        if(userConnected == true) {
+            System.out.println("Bool Change");
+            startActivity(new Intent(this, getEvent.class));
+        }
+
         setContentView(R.layout.activity_googlelogin);
 
         signinButton = (SignInButton) findViewById(R.id.signin);
@@ -144,6 +159,11 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
 
                 username.setText(personName);
                 emailLabel.setText(email);
+                if(userConnected == false)
+
+                {
+                    sendToDatabase();
+                }
 
                 new LoadProfileImage(image).execute(personPhotoUrl);
 
@@ -162,6 +182,10 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
 
     public String getEmail() {
         return emailLabel.getText().toString();
+    }
+
+    public void sendToDatabase() {
+        new InsertClass(this,1).execute(getUsername(), getEmail());
     }
 
     @Override

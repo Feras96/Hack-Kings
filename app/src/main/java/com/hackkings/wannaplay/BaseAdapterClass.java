@@ -45,8 +45,6 @@ public class BaseAdapterClass extends BaseAdapter {
         this.postcode = postcode;
 
 
-        System.out.println("APELATA");
-
     }
     @Override
     public int getCount() {
@@ -77,11 +75,9 @@ public class BaseAdapterClass extends BaseAdapter {
         {
             LayoutInflater inflater= activity.getLayoutInflater();
             v = inflater.inflate(R.layout.row_listitem,parent,false);
-            System.out.println("CACAT");
         }
 
 
-        System.out.println("AFISARE");
 
         TextView sport2 = (TextView) v.findViewById(R.id.sport);
         sp = sport.get(position).toString();
