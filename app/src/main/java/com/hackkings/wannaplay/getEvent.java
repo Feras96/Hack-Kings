@@ -69,6 +69,7 @@ public class getEvent extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -83,8 +84,8 @@ public class getEvent extends AppCompatActivity {
     public void newevent()
     {
         Intent ins = new Intent(this, createEvent.class);
-finish();
-                startActivity(ins);
+        //finish();
+        startActivity(ins);
     }
 
 

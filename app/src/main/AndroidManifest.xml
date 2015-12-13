@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".evpage" >
         </activity>
+        <activity android:name=".createEvent" >
+        </activity>
     </application>
 
 </manifest>

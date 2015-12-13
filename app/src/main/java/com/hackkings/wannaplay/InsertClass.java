@@ -32,9 +32,11 @@ public class InsertClass extends AsyncTask<String,Void,String>{
     private Boolean server_down = false;
     private String username;
 
-    public static String filename = "Vlad";
+   /* public static String filename = "VLAD";
     SharedPreferences data;
-    SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor; */
+
+
 
 
 
@@ -42,6 +44,9 @@ public class InsertClass extends AsyncTask<String,Void,String>{
     public InsertClass(Context context,int flag) {
         this.context = context;
         byGetOrPost = flag;
+
+
+
         // upDialog = new ProgressDialog(context);
 
     }
@@ -121,13 +126,14 @@ public class InsertClass extends AsyncTask<String,Void,String>{
         if(result.toString().equals("succesfull"))
         {
 
-
-            data = context.getSharedPreferences(filename, 0);
-            editor = data.edit();
-
+            SharedPreferences shared = context.getSharedPreferences(username, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = shared.edit();
             editor.putString("usr", username);
-            editor.putBoolean("logged",true);
-            editor.commit();
+            editor.putBoolean("logged", true);
+            editor.commit();// commit is important here.
+            //data = context.getSharedPreferences(filename, 0);
+           // editor = data.edit();
+
 
 
 
@@ -136,18 +142,17 @@ public class InsertClass extends AsyncTask<String,Void,String>{
 
 
         }
-        if(result.toString().equals("failed"))
+        /*if(result.toString().equals("failed"))
         {
 
             Toast.makeText(context, "Username or e-mail already in use", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         if(result.toString().equals("indata"))
         {
 
             Toast.makeText(context, "Already registered", Toast.LENGTH_SHORT).show();
-            data = context.getSharedPreferences(filename, 0);
-            editor = data.edit();
-
+            SharedPreferences shared = context.getSharedPreferences(username, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = shared.edit();
             editor.putString("usr", username);
             editor.putBoolean("logged",true);
             editor.commit();

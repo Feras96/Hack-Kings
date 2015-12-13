@@ -88,6 +88,7 @@ public class evpage extends AppCompatActivity {
                     System.out.println("+1");
                     joinMatch task = new joinMatch(1);
                     task.execute(email, id, "1");
+                    join.setText("Leave");
 
 
                     pla.setText("Players: "+(Integer.valueOf(players)+1));
@@ -98,6 +99,7 @@ public class evpage extends AppCompatActivity {
                     unjoinMatch task2 = new unjoinMatch(1);
                     task2.execute(email,id,"1");
                     pla.setText("Players: "+players);
+                    join.setText("Join");
                     joined = false;
                 }
 

@@ -1,8 +1,11 @@
 package com.hackkings.wannaplay;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,16 +66,11 @@ public class createEvent extends AppCompatActivity {
         cleartext(nop);
 
 
-        android.support.v7.widget.Toolbar myToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.my);
-
-        setSupportActionBar(myToolbar);
-        setTitle("");
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.men, menu);
+        inflater.inflate(R.menu.men2, menu);
 
         return true;
     }
@@ -101,8 +99,9 @@ public class createEvent extends AppCompatActivity {
 
         finaldate = getDate()+":"+getTime();
         postevent task = new postevent(1);
-        task.execute(name, sport, postcode, city, country, numberof, finaldate, "VLLADONE", "1");
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = prefs.getString("usr","Feras Al-Hamadani");
+        task.execute(name, sport, postcode, city, country, numberof, finaldate, username, "1");
         Intent ins = new Intent(getApplicationContext(), getEvent.class);
         finish();
         startActivity(ins);

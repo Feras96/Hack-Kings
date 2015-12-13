@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.moelesterindustries.vlad.wannaplay.createEvent">
-    <android.support.v7.widget.Toolbar
+    tools:context="com.hackkings.wannaplay.createEvent">
         android:id="@+id/my"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -14,7 +13,7 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/my">
+    >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -32,37 +31,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/evname"
-                android:text="Event name:" />
+                android:hint="Event name:" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spo"
-                android:text="Sport" />
+                android:hint="Sport" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/postal"
-                android:text="Postcode:" />
+                android:hint="Postcode:" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/cit"
-                android:text="City:" />
+                android:hint="City:" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/con"
-                android:text="Country" />
+                android:hint="Country" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/nopl"
-                android:text="No.of players:" />
+                android:hint="No.of players:" />
         </LinearLayout>
 
         <DatePicker
