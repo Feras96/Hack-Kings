@@ -151,6 +151,8 @@ public class InsertClass extends AsyncTask<String,Void,String>{
             editor.putString("usr", username);
             editor.putBoolean("logged",true);
             editor.commit();
+
+            System.out.println("indata");
         }
 
 

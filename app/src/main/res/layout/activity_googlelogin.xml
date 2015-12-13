@@ -37,6 +37,15 @@
             android:textSize="16dp" />
 
         <Button
+            android:id="@+id/proceed"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="proceed"
+            android:padding="10dp"
+            android:text="Proceed"
+            android:textSize="18dp" />
+
+        <Button
             android:id="@+id/logout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

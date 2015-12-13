@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
+
 import java.util.ArrayList;
 
 /**
@@ -84,7 +85,6 @@ public class BaseAdapterClass extends BaseAdapter {
         sport2.setText(sp);
 
 
-
         TextView date2 = (TextView) v.findViewById(R.id.date);
         dt = event_date.get(position).toString();
         date2.setText(dt);
@@ -118,10 +118,6 @@ public class BaseAdapterClass extends BaseAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent in = new Intent(activity.getApplicationContext(), EventActivity.class);
-                activity.startActivity(in);
-
             }
         });
 

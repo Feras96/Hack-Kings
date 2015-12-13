@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,10 +48,11 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
     private TextView username, emailLabel;
     private LinearLayout profileFrame, signinFrame;
     private boolean userConnected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_googlelogin);
 
         data = getSharedPreferences(filename, 0);
         userConnected = data.getBoolean("logged", false);
@@ -59,10 +61,17 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
             startActivity(new Intent(this, getEvent.class));
         }
 
-        setContentView(R.layout.activity_googlelogin);
-
         signinButton = (SignInButton) findViewById(R.id.signin);
         signinButton.setOnClickListener(this);
+        Button proceed = (Button) findViewById(R.id.proceed);
+
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToEvents();
+            }
+
+        });
 
         image = (ImageView) findViewById(R.id.image);
         username = (TextView) findViewById(R.id.username);
@@ -86,6 +95,11 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
         }
     }
 
+    public void goToEvents() {
+        startActivity(new Intent(this, getEvent.class));
+    }
+
+
     private void resolveSignInError() {
         if (mConnectionResult.hasResolution()) {
             try {
@@ -106,7 +120,7 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
         }
 
         if (!mIntentInProgress) {
-            // store mConnectionResult
+            //store mConnectionResult
             mConnectionResult = result;
 
             if (signedInUser) {
@@ -200,6 +214,7 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
             case R.id.signin:
                 googlePlusLogin();
                 break;
+
         }
     }
 
@@ -215,6 +230,9 @@ public class GoogleLogin extends Activity implements OnClickListener, Connection
         if (!mGoogleApiClient.isConnecting()) {
             signedInUser = true;
             resolveSignInError();
+            updateProfile(true);
+            startActivity(new Intent(getApplicationContext(), getEvent.class));
+
         }
     }
 
