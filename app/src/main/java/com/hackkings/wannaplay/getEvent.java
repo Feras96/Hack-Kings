@@ -1,11 +1,19 @@
 package com.hackkings.wannaplay;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -16,6 +24,7 @@ import java.io.DataInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vlad on 12/10/2015.
@@ -31,6 +40,9 @@ public class getEvent extends AppCompatActivity {
     ArrayList<String> country = new ArrayList<String>();
     ArrayList<String> event_date = new ArrayList<String>();
     ArrayList<String> players = new ArrayList<String>();
+    ArrayList<String> name = new ArrayList<String>();
+    ArrayList<String> id = new ArrayList<String>();
+    ArrayList<String> numberof = new ArrayList<String >();
 
 
     ListView liste;
@@ -39,11 +51,42 @@ public class getEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         liste = (ListView) findViewById(R.id.listView1);
 //        init();
 //        outputLine("Request started...");
         new getData().execute("http://webzard.com/databases/android/wannaplay/getevents.php");
+
+
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.men, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.news:
+                newevent();
+               return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public void newevent()
+    {
+        Intent ins = new Intent(this, createEvent.class);
+finish();
+                startActivity(ins);
+    }
+
 
     private class getData extends AsyncTask<String,Double,JSONArray> {
 
@@ -66,12 +109,12 @@ public class getEvent extends AppCompatActivity {
                 {
                     output.write(buffer,0,bufferLength);
                 }
-                //   outputLine("Success1!");
+             //   outputLine("Success1!");
                 return new JSONArray(output.toString("UTF-8"));
 
             }catch (Exception e){
 
-                //   outputLine("Something went wrong1!");
+             //   outputLine("Something went wrong1!");
                 return null;
             }
         }
@@ -91,16 +134,23 @@ public class getEvent extends AppCompatActivity {
                     postcode.add("Location: "+l.getString("postcode"));
                     city.add(l.getString("city")+",");
                     country.add(l.getString("country"));
-                    event_date.add("Available: "+l.getString("event_date")+" -");
-                    players.add("Players: "+l.getString("members"));
+                    event_date.add("Available: "+l.getString("event_date"));
+                    players.add(l.getString("members"));
+                    name.add(l.getString("name"));
+                    id.add(l.getString("id"));
+                    numberof.add(l.getString("numberof"));
+
+//System.out.println("!!");
+                //    outputLine(l.getString("timestamp"));
+                //    outputLine("Success2!");
 
                 }
-                adapter = new BaseAdapterClass(getEvent.this,timestamp,sport,city,country,event_date,players,username,postcode);
+                adapter = new BaseAdapterClass(getEvent.this,timestamp,sport,city,country,event_date,players,username,postcode,name,id,numberof);
                 liste.setAdapter(adapter);
 
             }catch (Exception e)
             {
-                //    outputLine("Something went wrong2!");
+            //    outputLine("Something went wrong2!");
             }
         }
     }

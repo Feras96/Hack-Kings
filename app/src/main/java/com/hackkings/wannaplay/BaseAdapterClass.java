@@ -1,16 +1,20 @@
 package com.hackkings.wannaplay;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 /**
  * Created by vlad on 12/10/2015.
@@ -27,11 +31,25 @@ public class BaseAdapterClass extends BaseAdapter {
     private ArrayList players;
     private ArrayList username;
     private ArrayList postcode;
+    private ArrayList name;
+    private ArrayList id;
+    private ArrayList numberof;
 
     private String sp;
     private String dt;
+    private String ct;
+    private String ts;
+    private String p;
+    private String u;
+    private String pst;
+    private String n;
+    private String numof;
 
-    public BaseAdapterClass(Activity a,ArrayList timestamp,ArrayList sport,  ArrayList city, ArrayList country, ArrayList event_date,ArrayList players,ArrayList username,ArrayList postcode)
+    private String co;
+    private Intent ine;
+
+
+    public BaseAdapterClass(Activity a,ArrayList timestamp,ArrayList sport,  ArrayList city, ArrayList country, ArrayList event_date,ArrayList players,ArrayList username,ArrayList postcode,ArrayList name,ArrayList id,ArrayList numberof)
     {
         this.activity = a;
         this.timestamp = timestamp;
@@ -44,7 +62,12 @@ public class BaseAdapterClass extends BaseAdapter {
 
         this.username = username;
         this.postcode = postcode;
+        this.name = name;
+        this.id = id;
+        this.numberof = numberof;
 
+
+System.out.println("APELATA");
 
     }
     @Override
@@ -76,13 +99,16 @@ public class BaseAdapterClass extends BaseAdapter {
         {
             LayoutInflater inflater= activity.getLayoutInflater();
             v = inflater.inflate(R.layout.row_listitem,parent,false);
+            System.out.println("CACAT");
         }
 
 
+        System.out.println("AFISARE");
 
-        TextView sport2 = (TextView) v.findViewById(R.id.sport);
-        sp = sport.get(position).toString();
-        sport2.setText(sp);
+                TextView sport2 = (TextView) v.findViewById(R.id.sport);
+                 sp = sport.get(position).toString();
+                sport2.setText(sp);
+
 
 
         TextView date2 = (TextView) v.findViewById(R.id.date);
@@ -92,36 +118,78 @@ public class BaseAdapterClass extends BaseAdapter {
 
 
         TextView city2 = (TextView) v.findViewById(R.id.city);
-        String ct = city.get(position).toString();
+        ct = city.get(position).toString();
         city2.setText(ct);
 
         TextView country2 = (TextView) v.findViewById(R.id.country);
-        String co = country.get(position).toString();
+         co = country.get(position).toString();
         country2.setText(co);
 
         TextView timestamp2 = (TextView) v.findViewById(R.id.times);
-        String ts = timestamp.get(position).toString();
+         ts = timestamp.get(position).toString();
         timestamp2.setText(ts);
 
         TextView pla = (TextView) v.findViewById(R.id.play);
-        String p = players.get(position).toString();
-        pla.setText(p);
+         p = players.get(position).toString();
+        pla.setText("Players: "+p);
 
         TextView usr = (TextView) v.findViewById(R.id.user);
-        String u = username.get(position).toString();
-        usr.setText(u);
+         u = username.get(position).toString();
+       usr.setText(u);
 
         TextView po = (TextView) v.findViewById(R.id.post);
-        String pst = postcode.get(position).toString();
+         pst = postcode.get(position).toString();
         po.setText(pst);
+
+
+        TextView na = (TextView) v.findViewById(R.id.nams);
+        n = name.get(position).toString();
+        na.setText(n);
+
+        TextView nuof = (TextView) v.findViewById(R.id.numbero);
+        numof = numberof.get(position).toString();
+        nuof.setText("/"+numof);
+
+        ine = new Intent(activity.getApplicationContext(), evpage.class);
+        sendToPage(ine, position,v);
+
+
+
+
+        return v;
+    }
+
+
+    public void sendToPage(final Intent in,final int position,View v)
+    {
+        final int pos = position;
+
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                in.putExtra("sport",sport.get(pos).toString());
+                in.putExtra("eventdate",event_date.get(pos).toString());
+                in.putExtra("city",city.get(pos).toString());
+                in.putExtra("country",country.get(pos).toString());
+                in.putExtra("timestamp",timestamp.get(pos).toString());
+                in.putExtra("players",players.get(pos).toString());
+                in.putExtra("username",username.get(pos).toString());
+                in.putExtra("postcode",postcode.get(pos).toString());
+                in.putExtra("name",name.get(pos).toString());
+                in.putExtra("id",id.get(pos).toString());
+                in.putExtra("numberof",numberof.get(position).toString());
+            activity.finish();
+                activity.startActivity(in);
+
+
+
             }
         });
 
-        return v;
     }
 
 
